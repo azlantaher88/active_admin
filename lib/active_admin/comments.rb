@@ -44,6 +44,12 @@ ActiveAdmin.after_load do |app|
         end
 
         controller do
+
+          # Prevent N+1 queries
+          def scoped_collection
+            resource_class.includes :author, :resource
+          end
+
           # Redirect to the resource show page after comment creation
           def create
             create! do |success, failure|
@@ -57,6 +63,7 @@ ActiveAdmin.after_load do |app|
               end
             end
           end
+
           # Define the permitted params in case the app is using Strong Parameters
           unless Rails::VERSION::MAJOR == 3 && !defined? StrongParameters
             def permitted_params
