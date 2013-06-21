@@ -76,12 +76,6 @@ module ActiveAdmin
     delegate :load!,         :to => :application
     delegate :routes,        :to => :application
 
-    # Returns true if this rails application has the asset
-    # pipeline enabled.
-    def use_asset_pipeline?
-      Rails.application.config.try(:assets).try(:enabled)
-    end
-
     # Migration MoveAdminNotesToComments generated with version 0.2.2 might reference
     # to ActiveAdmin.default_namespace.
     delegate :default_namespace, :to => :application
