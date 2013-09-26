@@ -9,7 +9,6 @@ module ActiveAdmin
     belongs_to :resource, :polymorphic => true
     belongs_to :author, :polymorphic => true
 
-    attr_accessible :resource, :resource_id, :resource_type, :body, :namespace
 
     validates_presence_of :resource
     validates_presence_of :body
@@ -41,6 +40,10 @@ module ActiveAdmin
 
     def self.table_name
       @table_name ||= ActiveRecord::Migrator.proper_table_name("active_admin_comments")
+    end
+
+    def self.ransackable_associations(auth_obj)
+      [] # removes commentable and author
     end
 
   end
