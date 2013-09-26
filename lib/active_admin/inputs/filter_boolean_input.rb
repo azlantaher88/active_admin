@@ -11,28 +11,20 @@ module ActiveAdmin
         end
       end
 
-      def check_box_html
-        template.check_box_tag("#{object_name}[#{method}]", checked_value, checked?, input_html_options)
-      end
-
       def search_method
-        method.to_s.match(search_conditions) ? method : "#{method}_eq"
+        method =~ search_conditions ? method : "#{method}_eq"
       end
 
       def checked?
-        if defined? ActionView::Helpers::InstanceTag
-          object && ActionView::Helpers::InstanceTag.check_box_checked?(object.send(search_method), checked_value)
-        else
-          object && boolean_checked?(object.send(search_method), checked_value)
-        end
+        object && boolean_checked?(object.send(search_method), checked_value)
       end
 
       def input_html_options
-        { :name => "q[#{search_method}]" }
+        { :name => "q[#{ search_method }]" }
       end
 
       def search_conditions
-        /true|false|present|blank|null|not_null/
+        /_(true|false|present|blank|null|not_null)\z/
       end
 
     end
