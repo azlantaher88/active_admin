@@ -250,14 +250,10 @@ module ActiveAdmin
 
     def generate_stylesheets
       # Create our own asset pipeline in Rails 3.0
-      if ActiveAdmin.use_asset_pipeline?
-        # Add our mixins to the load path for SASS
-        ::Sass::Engine::DEFAULT_OPTIONS[:load_paths] <<  File.expand_path("../../../app/assets/stylesheets", __FILE__)
-      else
-        require 'active_admin/sass/css_loader'
-        ::Sass::Plugin.add_template_location(File.expand_path("../../../app/assets/stylesheets", __FILE__))
-        ::Sass::Plugin.add_template_location(File.expand_path("../sass", __FILE__))
-      end
+
+      # Add our mixins to the load path for SASS
+      ::Sass::Engine::DEFAULT_OPTIONS[:load_paths] <<  File.expand_path("../../../app/assets/stylesheets", __FILE__)
+
     end
   end
 end
