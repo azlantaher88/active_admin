@@ -4,9 +4,16 @@ require 'active_admin/helpers/settings'
 module ActiveAdmin
   class Application
     include Settings
-    include Settings::Inheritance
 
-    settings_inherited_by Namespace
+    def self.inheritable_setting(name, default)
+      Namespace.setting name, nil
+      setting name, default
+    end
+
+    def self.deprecated_inheritable_setting(name, default)
+      Namespace.deprecated_setting name, nil
+      deprecated_setting name, default
+    end
 
     # The default namespace to put controllers and routes inside. Set this
     # in config/initializers/active_admin.rb using:
